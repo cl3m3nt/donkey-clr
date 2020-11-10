@@ -419,12 +419,12 @@ def get_model_by_type(model_type, cfg):
     input_shape = (cfg.IMAGE_H, cfg.IMAGE_W, cfg.IMAGE_DEPTH)
     if model_type == "linear":
         kl = KerasLinear(input_shape=input_shape)
-    elif model_type == "resnet18":
+    elif model_type == "resnet18_lin":
         kl = Resnet18LinearKeras(input_shape=input_shape)
     elif model_type == "categorical":
         kl = KerasCategorical(input_shape=input_shape,
                               throttle_range=cfg.MODEL_CATEGORICAL_MAX_THROTTLE_RANGE)
-    elif model_type == 'resnet18_categorical':
+    elif model_type == 'resnet18_cat':
         kl = Resnet18CategoricalKeras(input_shape=input_shape,
                               throttle_range=cfg.MODEL_CATEGORICAL_MAX_THROTTLE_RANGE)
     elif model_type == "tflite_linear":
@@ -437,7 +437,7 @@ def get_model_by_type(model_type, cfg):
         kl = TensorRTLinear(cfg=cfg)
     else:
         raise Exception("Unknown model type {:}, supported types are "
-                        "linear, categorical, tflite_linear, tensorrt_linear"
+                        "linear,resnet18_lin, categorical, resnet18_cat, tflite_linear, tensorrt_linear"
                         .format(model_type))
 
     return kl

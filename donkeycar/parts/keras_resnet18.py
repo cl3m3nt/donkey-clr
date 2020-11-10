@@ -157,12 +157,10 @@ def ResNet18(include_top=True,
             x = layers.GlobalAveragePooling2D()(x)
         elif pooling == 'max':
             x = layers.GlobalMaxPooling2D()(x)
-        '''
         else:
             warnings.warn('No flattenting layer operation like AveragePooling2D or MaxPooling2D has been added
             whereas there are not top. You will need to apply AveragePooling2D or MaxPooling2D in case of 
             doing transfer learning')
-        '''
 
     # Ensure that the model takes into account
     # any potential predecessors of `input_tensor`.
