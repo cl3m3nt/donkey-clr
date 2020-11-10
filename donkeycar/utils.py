@@ -409,7 +409,7 @@ def get_model_by_type(model_type, cfg):
     '''
     from donkeycar.parts.keras import KerasRNN_LSTM, KerasBehavioral, \
         KerasCategorical, KerasIMU, KerasLinear, Keras3D_CNN, \
-        KerasLocalizer, KerasLatent
+        KerasLocalizer, KerasLatent, Resnet18LinearKeras, Resnet18CategoricalKeras
     from donkeycar.parts.tflite import TFLitePilot
 
     if model_type is None:
@@ -419,8 +419,13 @@ def get_model_by_type(model_type, cfg):
     input_shape = (cfg.IMAGE_H, cfg.IMAGE_W, cfg.IMAGE_DEPTH)
     if model_type == "linear":
         kl = KerasLinear(input_shape=input_shape)
+    elif model_type == "resnet18":
+        kl = Resnet18LinearKeras(input_shape=input_shape)
     elif model_type == "categorical":
         kl = KerasCategorical(input_shape=input_shape,
+                              throttle_range=cfg.MODEL_CATEGORICAL_MAX_THROTTLE_RANGE)
+    elif model_type == 'resnet18_categorical':
+        kl = Resnet18CategoricalKeras(input_shape=input_shape,
                               throttle_range=cfg.MODEL_CATEGORICAL_MAX_THROTTLE_RANGE)
     elif model_type == "tflite_linear":
         kl = TFLitePilot()
